@@ -1,0 +1,118 @@
+<div class="min-h-screen bg-gray-50">
+  <header class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <h1 class="text-xl font-semibold text-gray-900">Chat History</h1>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    @if (isLoading) {
+    <div class="flex justify-center py-12">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
+    } @else if (errorMessage) {
+    <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-4">
+      <div class="flex">
+        <div>
+          <p class="text-sm text-red-700">{{ errorMessage }}</p>
+        </div>
+      </div>
+    </div>
+    } @else if (chatSessions.length === 0) {
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+      <div
+        class="px-4 py-12 flex flex-col items-center justify-center text-center"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-12 w-12 text-gray-400"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+          />
+        </svg>
+        <h3 class="mt-2 text-lg font-medium text-gray-900">No chat history</h3>
+        <p class="mt-1 text-gray-500">Start a new chat to ask questions!</p>
+        <div class="mt-6">
+          <a routerLink="/chat" class="btn btn-primary"> Start a new chat </a>
+        </div>
+      </div>
+    </div>
+    } @else {
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+      <ul class="divide-y divide-gray-200">
+        @for (session of chatSessions; track session.id) {
+        <li
+          class="px-4 py-4 flex items-center justify-between hover:bg-gray-50 cursor-pointer"
+          (click)="viewChatSession(session.id)"
+          (keydown.enter)="viewChatSession(session.id)"
+        >
+          <div class="min-w-0 flex-1">
+            <p class="text-sm font-medium text-gray-900 truncate">
+              {{ getChatTitle(session) }}
+            </p>
+            <p class="mt-1 text-sm text-gray-500 truncate">
+              {{ getLastMessagePreview(session) }}
+            </p>
+            <div class="mt-2 flex items-center text-xs text-gray-500">
+              <p>{{ session.updatedAt | date : "medium" }}</p>
+              @if (session.topic) {
+              <span
+                class="ml-2 px-2 py-0.5 rounded-full bg-blue-100 text-blue-800"
+              >
+                {{ session.topic }}
+              </span>
+              }
+            </div>
+          </div>
+          <div>
+            <button
+              type="button"
+              class="inline-flex items-center p-1 border border-transparent rounded-full shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+              (click)="deleteChatSession(session.id, $event)"
+            >
+              <svg
+                class="h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                />
+              </svg>
+            </button>
+          </div>
+        </li>
+        }
+      </ul>
+    </div>
+    }
+  </main>
+</div>
+
+<!-- Global confirmation dialog for all page actions -->
+<app-confirmation-dialog
+  [isOpen]="(dialogService.dialogVisible$ | async) ?? false"
+  [title]="(dialogService.dialogConfig$ | async)?.title ?? 'Confirm'"
+  [message]="(dialogService.dialogConfig$ | async)?.message ?? 'Are you sure?'"
+  [confirmButtonText]="
+    (dialogService.dialogConfig$ | async)?.confirmButtonText ?? 'Confirm'
+  "
+  [cancelButtonText]="
+    (dialogService.dialogConfig$ | async)?.cancelButtonText ?? 'Cancel'
+  "
+  (confirm)="dialogService.confirm()"
+  (cancel)="dialogService.cancel()"
+>
+</app-confirmation-dialog>

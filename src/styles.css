@@ -1,0 +1,51 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .btn {
+        @apply px-4 py-2 font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
+    }
+
+    .btn-primary {
+        @apply bg-primary text-white hover:bg-primary-dark focus:ring-primary;
+    }
+
+    .btn-secondary {
+        @apply bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 focus:ring-primary;
+    }
+
+    .form-input {
+        @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary;
+    }
+
+    .form-label {
+        @apply block text-sm font-medium text-gray-700 mb-1;
+    }
+
+    .form-error {
+        @apply mt-1 text-sm text-red-600;
+    }
+
+    .chat-bubble {
+        @apply px-4 py-3 rounded-lg max-w-[80%] mb-2;
+    }
+
+    .chat-bubble-user {
+        @apply bg-primary text-white ml-auto rounded-br-none;
+    }
+
+    .chat-bubble-ai {
+        @apply bg-gray-200 text-gray-800 mr-auto rounded-bl-none;
+    }
+}
+
+html,
+body {
+    @apply h-full;
+}
+
+body {
+    @apply bg-gray-50;
+}

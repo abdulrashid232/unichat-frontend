@@ -1,0 +1,24 @@
+@if(errorMessage){
+<div
+  class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4"
+  role="alert"
+>
+  <span class="block sm:inline">{{ errorMessage }}</span>
+  <button (click)="onDismiss()" class="absolute top-0 right-0 px-4 py-3">
+    <svg
+      class="h-4 w-4"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M6 18L18 6M6 6l12 12"
+      />
+    </svg>
+  </button>
+</div>
+}

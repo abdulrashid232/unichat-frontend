@@ -1,0 +1,10 @@
+{
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist/unichat",
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ]
+}

@@ -17,8 +17,10 @@
     </span>
     }
   </div>
-  <!-- Use text instead of content -->
-  <p>{{ message.text }}</p>
+  <markdown
+  [data]="message.text"
+  >
+</markdown>
   <div class="text-xs opacity-75 text-right mt-1">
     {{ message.timestamp | date : "shortTime" }}
   </div>

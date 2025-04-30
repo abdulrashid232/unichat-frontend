@@ -4,6 +4,7 @@ import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, tap, map, switchMap, finalize } from 'rxjs/operators';
 import { ChatSession, Message } from '../models/message.model';
 import { Environment } from 'environment/environment';
+import { ToastService } from './toast.service';
 
 interface ChatResponse {
   success: boolean;
@@ -32,7 +33,10 @@ export class ChatService {
   private readonly errorSubject = new BehaviorSubject<string | null>(null);
   error$ = this.errorSubject.asObservable();
 
-  constructor(private readonly http: HttpClient) {
+  constructor(
+    private readonly http: HttpClient,
+    private readonly toastService: ToastService
+  ) {
     // Load history at startup
     this.loadChatHistory().subscribe();
   }
@@ -276,6 +280,7 @@ export class ChatService {
     }
 
     this.errorSubject.next(errorMessage);
+    this.toastService.error(errorMessage);
     console.error('Chat service error:', errorMessage);
 
     return throwError(() => new Error(errorMessage));

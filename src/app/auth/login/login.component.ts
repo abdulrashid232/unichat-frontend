@@ -8,22 +8,23 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
   loginForm: FormGroup;
-  errorMessage: string | null = null;
   isLoading = false;
 
   constructor(
     private readonly fb: FormBuilder,
     private readonly authService: AuthService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly toastService: ToastService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -37,18 +38,18 @@ export class LoginComponent {
     }
 
     this.isLoading = true;
-    this.errorMessage = null;
 
     const { email, password } = this.loginForm.value;
 
     this.authService.login(email, password).subscribe({
       next: () => {
         this.isLoading = false;
+        this.toastService.success('Login successful!');
         this.router.navigate(['/chat']);
       },
       error: (error) => {
         this.isLoading = false;
-        this.errorMessage = error.message;
+        this.toastService.error(error.message);
       },
     });
   }

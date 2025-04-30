@@ -1,4 +1,4 @@
-import { Component,  } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,6 +8,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-register',
@@ -17,13 +18,13 @@ import { CommonModule } from '@angular/common';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
-  errorMessage: string | null = null;
   isLoading = false;
 
   constructor(
     private readonly fb: FormBuilder,
     private readonly authService: AuthService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly toastService: ToastService
   ) {
     this.registerForm = this.fb.group(
       {
@@ -49,18 +50,18 @@ export class RegisterComponent {
     }
 
     this.isLoading = true;
-    this.errorMessage = null;
 
     const { name, email, university, password } = this.registerForm.value;
 
     this.authService.register(name, email, password, university).subscribe({
       next: () => {
         this.isLoading = false;
+        this.toastService.success('Account created successfully!');
         this.router.navigate(['/chat']);
       },
       error: (error) => {
         this.isLoading = false;
-        this.errorMessage = error.message;
+        this.toastService.error(error.message);
       },
     });
   }

@@ -1,12 +1,10 @@
 <div class="h-screen flex flex-col bg-gray-50">
-  <!-- Header -->
   <header class="bg-white shadow-sm mt-16">
     <div
       class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between"
     >
       <div class="flex items-center space-x-4">
         <h1 class="text-xl font-semibold text-gray-900">AI Assistant</h1>
-        <!-- Session Selector Dropdown -->
         <div class="relative inline-block text-left">
           <button
             type="button"
@@ -96,7 +94,6 @@
     </div>
   </header>
 
-  <!-- Chat Container -->
   <div #chatContainer class="flex-1 overflow-y-auto px-4 py-6 mb-20">
     <div class="max-w-3xl mx-auto space-y-4">
       @if (!currentSession?.messages?.length) {
@@ -162,7 +159,6 @@
     </div>
   </div>
 
-  <!-- Message Input -->
   <div
     class="border-t border-gray-200 bg-white p-4 fixed bottom-0 left-0 right-0"
   >

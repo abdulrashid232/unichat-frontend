@@ -48,9 +48,6 @@ export class ToastComponent implements OnInit {
     });
   }
 
-  /**
-   * Get CSS class based on toast type
-   */
   getToastClass(type: string): string {
     switch (type) {
       case 'success':
@@ -66,9 +63,6 @@ export class ToastComponent implements OnInit {
     }
   }
 
-  /**
-   * Get icon based on toast type
-   */
   getToastIcon(type: string): string {
     switch (type) {
       case 'success':
@@ -96,9 +90,6 @@ export class ToastComponent implements OnInit {
     }
   }
 
-  /**
-   * Remove a toast notification
-   */
   removeToast(id: string): void {
     this.toastService.remove(id);
   }

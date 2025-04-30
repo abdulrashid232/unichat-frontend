@@ -63,16 +63,15 @@ export class RegisterComponent {
       },
       error: (error) => {
         this.isLoading = false;
-        this.toastService.error(this.errorFormatter.formatError(error, 'Registration failed'));
+        this.toastService.error(
+          this.formatErrorMessage(error)
+        );
       },
     } );
-
 
 }
   private formatErrorMessage(error: any): string {
     if (!error) return 'An unknown error occurred';
-
-    // Handle specific error cases
     if (error.status === 409) {
       return 'An account with this email already exists';
     }
@@ -80,8 +79,6 @@ export class RegisterComponent {
     if (error.status === 400) {
       return 'Please check your information and try again';
     }
-
-    // Extract message from different error formats
     let message = 'Registration failed';
     
     if (typeof error === 'string') {
@@ -91,11 +88,10 @@ export class RegisterComponent {
     } else if (error.error?.message) {
       message = error.error.message;
     } else if (Array.isArray(error.error?.errors)) {
-      // Handle validation errors array
+
       message = error.error.errors.map((e: any) => e.message || e).join('. ');
     }
     
-    // Clean up common backend messages
     message = message
       .replace('Error: ', '')
       .replace(/^[a-z]/, (c) => c.toUpperCase());

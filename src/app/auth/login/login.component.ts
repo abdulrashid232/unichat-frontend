@@ -57,8 +57,6 @@ export class LoginComponent {
   }
   private formatErrorMessage(error: any): string {
     if (!error) return 'An unknown error occurred';
-
-    // Handle common authentication errors
     if (error.status === 401) {
       return 'Invalid email or password';
     }
@@ -66,8 +64,6 @@ export class LoginComponent {
     if (error.status === 404) {
       return 'Account not found. Please check your email';
     }
-
-    // Extract message from different error formats
     let message = 'Login failed';
     
     if (typeof error === 'string') {
@@ -77,8 +73,6 @@ export class LoginComponent {
     } else if (error.error?.message) {
       message = error.error.message;
     }
-    
-    // Clean up common backend messages
     message = message
       .replace('Error: ', '')
       .replace(/^[a-z]/, (c) => c.toUpperCase());

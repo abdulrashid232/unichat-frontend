@@ -101,7 +101,6 @@
   </main>
 </div>
 
-<!-- Global confirmation dialog for all page actions -->
 <app-confirmation-dialog
   [isOpen]="(dialogService.dialogVisible$ | async) ?? false"
   [title]="(dialogService.dialogConfig$ | async)?.title ?? 'Confirm'"

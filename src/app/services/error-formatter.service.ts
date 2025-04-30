@@ -6,16 +6,12 @@ import { Injectable } from '@angular/core';
 export class ErrorFormatterService {
   constructor() {}
 
-  /**
-   * Format error messages from various sources into user-friendly messages
-   */
   formatError(
     error: any,
     defaultMessage = 'An unexpected error occurred'
   ): string {
     if (!error) return defaultMessage;
 
-    // Handle specific HTTP status codes
     if (error.status) {
       switch (error.status) {
         case 400:
@@ -39,7 +35,6 @@ export class ErrorFormatterService {
       }
     }
 
-    // Extract message from various error formats
     let message = defaultMessage;
 
     if (typeof error === 'string') {
@@ -51,14 +46,9 @@ export class ErrorFormatterService {
     } else if (error.statusText && error.status) {
       message = `${error.statusText} (${error.status})`;
     }
-
-    // Clean up and format the message
     return this.cleanMessage(message);
   }
 
-  /**
-   * Get formatted message for validation errors
-   */
   private getValidationMessage(error: any): string {
     if (Array.isArray(error.error?.errors)) {
       return error.error.errors.map((e: any) => e.message || e).join('. ');
@@ -78,9 +68,6 @@ export class ErrorFormatterService {
     return 'Validation failed. Please check your input.';
   }
 
-  /**
-   * Get formatted message for bad request errors
-   */
   private getBadRequestMessage(error: any): string {
     if (error.error?.message) {
       return error.error.message;
@@ -89,16 +76,13 @@ export class ErrorFormatterService {
     return 'Invalid request. Please check your input.';
   }
 
-  /**
-   * Clean and format error message
-   */
   private cleanMessage(message: string): string {
     return message
-      .replace(/^error:?\s*/i, '') // Remove leading "Error: "
-      .replace(/^exception:?\s*/i, '') // Remove leading "Exception: "
-      .replace(/^failed:?\s*/i, '') // Remove leading "Failed: "
-      .replace(/\.$/, '') // Remove trailing period
-      .replace(/^[a-z]/, (c) => c.toUpperCase()) // Capitalize first letter
+      .replace(/^error:?\s*/i, '') 
+      .replace(/^exception:?\s*/i, '') 
+      .replace(/^failed:?\s*/i, '') 
+      .replace(/\.$/, '') 
+      .replace(/^[a-z]/, (c) => c.toUpperCase())
       .trim();
   }
 }

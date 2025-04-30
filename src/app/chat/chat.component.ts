@@ -44,7 +44,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   selectedTopic: Topic | null = null;
   isLoading = false;
   scrollToBottom = false;
-  isSessionMenuOpen = false; // Add this property
+  isSessionMenuOpen = false;
 
   private readonly destroy$ = new Subject<void>();
   private readonly currentSessionSubject = new Subject<ChatSession | null>();
@@ -61,7 +61,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   ngOnInit() {
-    // Load chat history to get available sessions
+
     this.chatService.loadChatHistory().subscribe((data) => {
       this.availableSessions = data.sessions || [];
 
@@ -76,7 +76,6 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
         });
     });
 
-    // Subscribe to the current session changes
     this.chatService.currentSession$
       .pipe(takeUntil(this.destroy$))
       .subscribe((session) => {
@@ -86,14 +85,12 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
         }
       });
 
-    // Subscribe to loading state
     this.chatService.loading$
       .pipe(takeUntil(this.destroy$))
       .subscribe((loading) => {
         this.isLoading = loading;
       });
 
-    // Subscribe to sessions list
     this.chatService.sessions$
       .pipe(takeUntil(this.destroy$))
       .subscribe((sessions) => {
@@ -125,7 +122,6 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
       skipLocationChange: false,
     });
 
-    // Fetch session with messages
     this.chatService.getSessionById(sessionId).subscribe({
       next: () => {
         this.scrollToBottom = true;
@@ -160,18 +156,12 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
 
     const topic = this.selectedTopic?.name;
-
-    // Clear the input immediately for better UX
     this.messageForm.get('message')?.setValue('');
-
-    // Set loading state
     this.isLoading = true;
 
     if (!this.currentSession) {
-      // No active session, send a new message which will create a session
       this.chatService.sendNewMessage(message, topic).subscribe({
         next: (response) => {
-          // If a session was created, navigate to it using query params
           if (response?.data?.session?.id) {
             this.router.navigate(['/chat'], {
               queryParams: { session: response.data.session.id },
@@ -187,7 +177,6 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
         },
       });
     } else {
-      // Send to existing session
       this.chatService
         .sendMessageToSession(
           this.currentSession.id,
@@ -205,7 +194,6 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
         });
     }
 
-    // Scroll to bottom to see the new message
     this.scrollToBottom = true;
   }
 

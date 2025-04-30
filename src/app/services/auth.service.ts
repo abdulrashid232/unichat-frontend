@@ -137,7 +137,6 @@ export class AuthService {
     this.getUser().subscribe((user) => {
       this._currentUser.set(user);
       this.currentUserSubject.next(user);
-      console.log('User logged in:', user);
     });
     this._isLoggedIn.set(true);
   }

@@ -49,16 +49,12 @@ export class LoginComponent {
         this.toastService.success('Login successful!');
         this.router.navigate(['/chat']);
       },
-      error: (error) => {rMessage(error));
+      error: (error) =>{
         this.isLoading = false;
         this.toastService.error(this.errorFormatter.formatError(error, 'Login failed'));
       },
-    });
-  }  /**
-
-
-}   * Format error messages to be more user-friendly
-   */
+    }); 
+  }
   private formatErrorMessage(error: any): string {
     if (!error) return 'An unknown error occurred';
 

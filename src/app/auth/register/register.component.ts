@@ -9,6 +9,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { ToastService } from '../../services/toast.service';
+import { ErrorFormatterService } from '../../services/error-formatter.service';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +25,8 @@ export class RegisterComponent {
     private readonly fb: FormBuilder,
     private readonly authService: AuthService,
     private readonly router: Router,
-    private readonly toastService: ToastService
+    private readonly toastService: ToastService,
+    private readonly errorFormatter: ErrorFormatterService
   ) {
     this.registerForm = this.fb.group(
       {
@@ -59,10 +61,47 @@ export class RegisterComponent {
         this.toastService.success('Account created successfully!');
         this.router.navigate(['/chat']);
       },
-      error: (error) => {
+      error: (error) => {rMessage(error));
         this.isLoading = false;
-        this.toastService.error(error.message);
+        this.toastService.error(this.errorFormatter.formatError(error, 'Registration failed'));
       },
     });
+  }  /**
+
+
+}   * Format error messages to be more user-friendly
+   */
+  private formatErrorMessage(error: any): string {
+    if (!error) return 'An unknown error occurred';
+
+    // Handle specific error cases
+    if (error.status === 409) {
+      return 'An account with this email already exists';
+    }
+
+    if (error.status === 400) {
+      return 'Please check your information and try again';
+    }
+
+    // Extract message from different error formats
+    let message = 'Registration failed';
+    
+    if (typeof error === 'string') {
+      message = error;
+    } else if (error.message) {
+      message = error.message;
+    } else if (error.error?.message) {
+      message = error.error.message;
+    } else if (Array.isArray(error.error?.errors)) {
+      // Handle validation errors array
+      message = error.error.errors.map((e: any) => e.message || e).join('. ');
+    }
+    
+    // Clean up common backend messages
+    message = message
+      .replace('Error: ', '')
+      .replace(/^[a-z]/, (c) => c.toUpperCase());
+    
+    return message;
   }
 }

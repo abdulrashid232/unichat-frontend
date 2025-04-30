@@ -9,6 +9,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { ToastService } from '../../services/toast.service';
+import { ErrorFormatterService } from '../../services/error-formatter.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ export class LoginComponent {
     private readonly fb: FormBuilder,
     private readonly authService: AuthService,
     private readonly router: Router,
-    private readonly toastService: ToastService
+    private readonly toastService: ToastService,
+    private readonly errorFormatter: ErrorFormatterService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -47,10 +49,44 @@ export class LoginComponent {
         this.toastService.success('Login successful!');
         this.router.navigate(['/chat']);
       },
-      error: (error) => {
+      error: (error) => {rMessage(error));
         this.isLoading = false;
-        this.toastService.error(error.message);
+        this.toastService.error(this.errorFormatter.formatError(error, 'Login failed'));
       },
     });
+  }  /**
+
+
+}   * Format error messages to be more user-friendly
+   */
+  private formatErrorMessage(error: any): string {
+    if (!error) return 'An unknown error occurred';
+
+    // Handle common authentication errors
+    if (error.status === 401) {
+      return 'Invalid email or password';
+    }
+
+    if (error.status === 404) {
+      return 'Account not found. Please check your email';
+    }
+
+    // Extract message from different error formats
+    let message = 'Login failed';
+    
+    if (typeof error === 'string') {
+      message = error;
+    } else if (error.message) {
+      message = error.message;
+    } else if (error.error?.message) {
+      message = error.error.message;
+    }
+    
+    // Clean up common backend messages
+    message = message
+      .replace('Error: ', '')
+      .replace(/^[a-z]/, (c) => c.toUpperCase());
+    
+    return message;
   }
 }

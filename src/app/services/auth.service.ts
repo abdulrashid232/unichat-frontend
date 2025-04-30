@@ -68,7 +68,6 @@ export class AuthService {
             this._currentUser.set(user);
             this._isLoggedIn.set(true);
             this.currentUserSubject.next(user);
-            console.log('User session restored:', user);
           }
         });
     }

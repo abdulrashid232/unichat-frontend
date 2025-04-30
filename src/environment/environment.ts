@@ -1,3 +1,3 @@
 export enum Environment {
-    BackendUrl = 'http://localhost:5000',
+  BackendUrl = 'https://unichat-backend.onrender.com',
 }

@@ -5,19 +5,19 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#3B82F6", // blue-500
-          dark: "#2563EB", // blue-600
-          light: "#60A5FA", // blue-400
+          DEFAULT: "#3B82F6", 
+          dark: "#2563EB", 
+          light: "#60A5FA",
         },
         secondary: {
-          DEFAULT: "#6366F1", // indigo-500
-          dark: "#4F46E5", // indigo-600
-          light: "#818CF8", // indigo-400
+          DEFAULT: "#6366F1",
+          dark: "#4F46E5",
+          light: "#818CF8",
         },
         accent: {
-          DEFAULT: "#8B5CF6", // violet-500
-          dark: "#7C3AED", // violet-600
-          light: "#A78BFA", // violet-400
+          DEFAULT: "#8B5CF6",
+          dark: "#7C3AED",
+          light: "#A78BFA",
         },
       },
       fontFamily: {

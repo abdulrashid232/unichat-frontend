@@ -5,9 +5,14 @@ import { LoginGuard } from './guards/login.guard';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'chat',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: '',
+    loadComponent:()=> import('./home-page/home-page.component').then(m => m.HomePageComponent),
+  },
+  
   {
     path: 'login',
     loadComponent: () =>

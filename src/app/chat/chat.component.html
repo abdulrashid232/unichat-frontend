@@ -1,15 +1,19 @@
-<div class="h-screen flex flex-col bg-gray-50">
-  <header class="bg-white shadow-sm mt-16">
+<div class="h-screen flex flex-col bg-white dark:bg-gray-900">
+  <header
+    class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700"
+  >
     <div
-      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between"
+      class="mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between"
     >
       <div class="flex items-center space-x-4">
-        <h1 class="text-xl font-semibold text-gray-900">AI Assistant</h1>
+        <h1 class="text-xl font-semibold text-gray-900 dark:text-white">
+          AI Chat
+        </h1>
         <div class="relative inline-block text-left">
           <button
             type="button"
             (click)="isSessionMenuOpen = !isSessionMenuOpen"
-            class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+            class="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-gray-800"
             id="session-menu"
             aria-haspopup="true"
             aria-expanded="true"
@@ -93,12 +97,11 @@
       </div>
     </div>
   </header>
-
   <div #chatContainer class="flex-1 overflow-y-auto px-4 py-6 mb-20">
     <div class="max-w-3xl mx-auto space-y-4">
       @if (!currentSession?.messages?.length) {
       <div
-        class="flex flex-col items-center justify-center h-full text-center text-gray-500 p-8"
+        class="flex flex-col items-center justify-center h-full text-center text-gray-500 dark:text-gray-400 p-8"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -114,16 +117,17 @@
             d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
           />
         </svg>
-        <h3 class="text-lg font-medium">Welcome to UniChat! 👋</h3>
-        <p class="mt-1">
-          Hello! I'm your AI assistant. How can I help with your university
-          studies today?
+        <h3 class="text-lg font-medium dark:text-white">
+          Welcome to Unichat! 👋
+        </h3>
+        <p class="mt-1 dark:text-gray-300">
+          Hello! I'm your AI assistant. How can I help you today?
         </p>
-        <div class="mt-4 bg-blue-50 p-4 rounded-lg max-w-lg">
-          <p class="text-sm text-blue-800 font-medium mb-2">
+        <div class="mt-4 bg-blue-50 dark:bg-gray-800 p-4 rounded-lg max-w-lg">
+          <p class="text-sm text-blue-800 dark:text-blue-300 font-medium mb-2">
             You can ask me questions like:
           </p>
-          <ul class="text-sm text-blue-700 list-disc pl-5 space-y-1">
+          <ul class="text-sm text-blue-700 dark:text-gray-300 list-disc pl-5 space-y-1">
             <li>Can you explain the concept of quantum entanglement?</li>
             <li>
               Help me understand the difference between macroeconomics and
@@ -158,9 +162,8 @@
       } }
     </div>
   </div>
-
   <div
-    class="border-t border-gray-200 bg-white p-4 fixed bottom-0 left-0 right-0"
+    class="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 fixed bottom-0 left-0 right-0 ml-56"
   >
     <div class="max-w-3xl mx-auto">
       <app-message-input

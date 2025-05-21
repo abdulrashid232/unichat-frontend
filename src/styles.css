@@ -9,23 +9,23 @@
     }
 
     .btn-primary {
-        @apply bg-primary text-white hover:bg-primary-dark focus:ring-primary;
+        @apply bg-primary text-white hover:bg-primary-dark focus:ring-primary dark:focus:ring-offset-gray-800;
     }
 
     .btn-secondary {
-        @apply bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 focus:ring-primary;
+        @apply bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 focus:ring-primary dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-600 dark:focus:ring-offset-gray-800;
     }
 
     .form-input {
-        @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary;
+        @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-primary-light dark:placeholder-gray-400;
     }
 
     .form-label {
-        @apply block text-sm font-medium text-gray-700 mb-1;
+        @apply block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1;
     }
 
     .form-error {
-        @apply mt-1 text-sm text-red-600;
+        @apply mt-1 text-sm text-red-600 dark:text-red-400;
     }
 
     .chat-bubble {
@@ -33,11 +33,11 @@
     }
 
     .chat-bubble-user {
-        @apply bg-primary text-white ml-auto rounded-br-none;
+        @apply bg-primary text-white ml-auto rounded-br-none dark:bg-primary-dark;
     }
 
     .chat-bubble-ai {
-        @apply bg-gray-200 text-gray-800 mr-auto rounded-bl-none;
+        @apply bg-gray-200 text-gray-800 mr-auto rounded-bl-none dark:bg-gray-700 dark:text-gray-200;
     }
 }
 
@@ -47,5 +47,5 @@ body {
 }
 
 body {
-    @apply bg-gray-50;
+    @apply bg-gray-50 dark:bg-gray-900;
 }

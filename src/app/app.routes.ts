@@ -10,9 +10,12 @@ export const routes: Routes = [
   },
   {
     path: '',
-    loadComponent:()=> import('./home-page/home-page.component').then(m => m.HomePageComponent),
+    loadComponent: () =>
+      import('./home-page/home-page.component').then(
+        (m) => m.HomePageComponent
+      ),
   },
-  
+
   {
     path: 'login',
     loadComponent: () =>

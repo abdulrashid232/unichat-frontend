@@ -1,7 +1,9 @@
-<div class="min-h-screen bg-gray-50">
-  <header class="bg-white shadow-sm">
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900">
+  <header class="bg-white dark:bg-gray-800 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-      <h1 class="text-xl font-semibold text-gray-900">Chat History</h1>
+      <h1 class="text-xl font-semibold text-gray-900 dark:text-white">
+        Chat History
+      </h1>
     </div>
   </header>
 
@@ -11,21 +13,23 @@
       <app-loading-spinner></app-loading-spinner>
     </div>
     } @else if (errorMessage) {
-    <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-4">
+    <div class="bg-red-50 dark:bg-red-900 border-l-4 border-red-500 p-4 mb-4">
       <div class="flex">
         <div>
-          <p class="text-sm text-red-700">{{ errorMessage }}</p>
+          <p class="text-sm text-red-700 dark:text-red-300">
+            {{ errorMessage }}
+          </p>
         </div>
       </div>
     </div>
     } @else if (chatSessions.length === 0) {
-    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+    <div class="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
       <div
         class="px-4 py-12 flex flex-col items-center justify-center text-center"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-12 w-12 text-gray-400"
+          class="h-12 w-12 text-gray-400 dark:text-gray-500"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -37,16 +41,20 @@
             d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
           />
         </svg>
-        <h3 class="mt-2 text-lg font-medium text-gray-900">No chat history</h3>
-        <p class="mt-1 text-gray-500">Start a new chat to ask questions!</p>
+        <h3 class="mt-2 text-lg font-medium text-gray-900 dark:text-white">
+          No chat history
+        </h3>
+        <p class="mt-1 text-gray-500 dark:text-gray-400">
+          Start a new chat to ask questions!
+        </p>
         <div class="mt-6">
           <a routerLink="/chat" class="btn btn-primary"> Start a new chat </a>
         </div>
       </div>
     </div>
     } @else {
-    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-      <ul class="divide-y divide-gray-200">
+    <div class="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
+      <ul class="divide-y divide-gray-200 dark:divide-gray-700">
         @for (session of chatSessions; track session.id) {
         <li
           class="px-4 py-4 flex items-center justify-between hover:bg-gray-50 cursor-pointer"
@@ -60,11 +68,13 @@
             <p class="mt-1 text-sm text-gray-500 truncate">
               {{ getLastMessagePreview(session) }}
             </p>
-            <div class="mt-2 flex items-center text-xs text-gray-500">
+            <div
+              class="mt-2 flex items-center text-xs text-gray-500 dark:text-gray-400"
+            >
               <p>{{ session.updatedAt | date : "medium" }}</p>
               @if (session.topic) {
               <span
-                class="ml-2 px-2 py-0.5 rounded-full bg-blue-100 text-blue-800"
+                class="ml-2 px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
               >
                 {{ session.topic }}
               </span>

@@ -11,12 +11,37 @@ import { AuthService } from '@services/auth.service';
 })
 export class SidebarComponent implements OnInit {
   isDarkMode = false;
+  isSidebarOpen = true;
+  isMobile = false;
 
   constructor(public readonly authService: AuthService) {}
 
   ngOnInit() {
     // Check if dark mode is active when component initializes
     this.isDarkMode = document.documentElement.classList.contains('dark');
+    this.checkMobile();
+    window.addEventListener('resize', this.checkMobile.bind(this));
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.checkMobile.bind(this));
+  }
+
+  checkMobile() {
+    this.isMobile = window.innerWidth < 768;
+    if (this.isMobile) {
+      this.isSidebarOpen = false;
+    } else {
+      this.isSidebarOpen = true;
+    }
+  }
+
+  openSidebar() {
+    this.isSidebarOpen = true;
+  }
+
+  closeSidebar() {
+    this.isSidebarOpen = false;
   }
 
   logout() {
@@ -29,9 +54,14 @@ export class SidebarComponent implements OnInit {
 
     // Save preference to localStorage
     if (this.isDarkMode) {
-        localStorage['theme'] = 'dark';
+      localStorage['theme'] = 'dark';
     } else {
       localStorage['theme'] = 'light';
+    }
+  }
+  onMenuClick() {
+    if (this.isMobile) {
+      this.closeSidebar();
     }
   }
 }

@@ -17,7 +17,6 @@ export class SidebarComponent implements OnInit {
   constructor(public readonly authService: AuthService) {}
 
   ngOnInit() {
-    // Check if dark mode is active when component initializes
     this.isDarkMode = document.documentElement.classList.contains('dark');
     this.checkMobile();
     window.addEventListener('resize', this.checkMobile.bind(this));

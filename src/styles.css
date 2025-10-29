@@ -28,7 +28,6 @@
         @apply mt-2 text-sm text-red-600 dark:text-red-400 flex items-center;
     }
 
-    /* Legacy chat bubble classes for backward compatibility */
     .chat-bubble {
         @apply mb-4;
     }
@@ -42,7 +41,6 @@
     }
 }
 
-/* Custom Animations */
 @keyframes slide-in-from-top {
     from {
         opacity: 0;
@@ -58,7 +56,6 @@
     animation: slide-in-from-top 0.2s ease-out;
 }
 
-/* Smooth scrolling */
 @layer base {
     html {
         scroll-behavior: smooth;
@@ -74,7 +71,6 @@ body {
     @apply bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800;
 }
 
-/* Custom scrollbar styles */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;

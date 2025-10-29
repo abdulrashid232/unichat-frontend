@@ -5,39 +5,63 @@
 
 @layer components {
     .btn {
-        @apply px-4 py-2 font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
+        @apply px-4 py-2 font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 transform hover:scale-105 active:scale-95;
     }
 
     .btn-primary {
-        @apply bg-primary text-white hover:bg-primary-dark focus:ring-primary dark:focus:ring-offset-gray-800;
+        @apply bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 focus:ring-blue-500 shadow-lg hover:shadow-xl dark:focus:ring-offset-gray-800;
     }
 
     .btn-secondary {
-        @apply bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 focus:ring-primary dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-600 dark:focus:ring-offset-gray-800;
+        @apply bg-white text-gray-700 border-2 border-gray-300 hover:bg-gray-50 focus:ring-blue-500 shadow-sm hover:shadow dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-800;
     }
 
     .form-input {
-        @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:border-primary-light dark:placeholder-gray-400;
+        @apply w-full px-4 py-3 border-2 border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all duration-200 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:focus:border-blue-500 dark:placeholder-gray-500;
     }
 
     .form-label {
-        @apply block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1;
+        @apply block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2;
     }
 
     .form-error {
-        @apply mt-1 text-sm text-red-600 dark:text-red-400;
+        @apply mt-2 text-sm text-red-600 dark:text-red-400 flex items-center;
     }
 
+    /* Legacy chat bubble classes for backward compatibility */
     .chat-bubble {
-        @apply px-3 py-2 rounded-lg max-w-[90vw] md:max-w-[80%] mb-2 break-words;
+        @apply mb-4;
     }
 
     .chat-bubble-user {
-        @apply bg-primary text-white ml-auto rounded-br-none dark:bg-primary-dark;
+        @apply flex justify-end;
     }
 
     .chat-bubble-ai {
-        @apply bg-gray-200 text-gray-800 mr-auto rounded-bl-none dark:bg-gray-700 dark:text-gray-200;
+        @apply flex justify-start;
+    }
+}
+
+/* Custom Animations */
+@keyframes slide-in-from-top {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-in {
+    animation: slide-in-from-top 0.2s ease-out;
+}
+
+/* Smooth scrolling */
+@layer base {
+    html {
+        scroll-behavior: smooth;
     }
 }
 
@@ -47,5 +71,60 @@ body {
 }
 
 body {
-    @apply bg-gray-50 dark:bg-gray-900;
+    @apply bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800;
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400 dark:bg-gray-500;
+}
+
+/* Markdown prose styles enhancement */
+.prose {
+    @apply max-w-none;
+}
+
+.prose p {
+    @apply mb-3 leading-relaxed;
+}
+
+.prose code {
+    @apply px-1.5 py-0.5 rounded-md bg-gray-100 dark:bg-gray-800 text-sm;
+}
+
+.prose pre {
+    @apply rounded-xl p-4 my-4;
+}
+
+.prose ul,
+.prose ol {
+    @apply my-3;
+}
+
+.prose li {
+    @apply mb-1;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+    @apply font-bold mt-6 mb-3;
+}
+
+.prose a {
+    @apply text-blue-600 dark:text-blue-400 hover:underline;
 }

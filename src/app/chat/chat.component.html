@@ -1,12 +1,17 @@
 <div class="h-screen flex flex-col bg-white dark:bg-gray-900">
-  <!-- Header -->
-  <header class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10">
-    <div class="mx-auto px-2 sm:px-6 lg:px-8 py-3 flex items-center justify-between min-h-[56px] w-[80%] md:w-full">
+  <header
+    class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10"
+  >
+    <div
+      class="mx-auto px-2 sm:px-6 lg:px-8 py-3 flex items-center justify-between min-h-[56px] w-[80%] md:w-full"
+    >
       <div class="flex items-center space-x-4">
-        <!-- Title -->
-        <h1 class="text-xl font-semibold text-gray-900 dark:text-white hidden md:block">AI Chat</h1>
+        <h1
+          class="text-xl font-semibold text-gray-900 dark:text-white hidden md:block"
+        >
+          AI Chat
+        </h1>
 
-        <!-- Session Menu -->
         <div class="relative inline-block text-left w-full">
           <button
             type="button"
@@ -17,7 +22,12 @@
             aria-expanded="true"
           >
             {{ currentSession?.title || "New Conversation" }}
-            <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <svg
+              class="ml-2 -mr-0.5 h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
               <path
                 fill-rule="evenodd"
                 d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -27,49 +37,64 @@
           </button>
 
           @if (isSessionMenuOpen) {
+          <div
+            class="fixed inset-x-0 top-[56px] z-30 w-full md:absolute md:top-auto md:right-0 md:mt-2 md:w-56 md:rounded-md md:shadow-lg md:bg-white md:ring-1 md:ring-black md:ring-opacity-5 md:z-10"
+            (clickOutside)="isSessionMenuOpen = false"
+          >
             <div
-              class="fixed inset-x-0 top-[56px] z-30 w-full md:absolute md:top-auto md:right-0 md:mt-2 md:w-56 md:rounded-md md:shadow-lg md:bg-white md:ring-1 md:ring-black md:ring-opacity-5 md:z-10"
-              (clickOutside)="isSessionMenuOpen = false"
+              class="py-1 bg-white rounded-b-md shadow md:rounded-md md:shadow-lg"
+              role="menu"
+              aria-orientation="vertical"
             >
-              <div class="py-1 bg-white rounded-b-md shadow md:rounded-md md:shadow-lg" role="menu" aria-orientation="vertical">
-                @for (session of availableSessions; track session.id) {
-                  <button
-                    type="button"
-                    (click)="onSessionSelected(session.id); isSessionMenuOpen = false"
-                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                    [class.bg-gray-100]="currentSession?.id === session.id"
-                    role="menuitem"
-                  >
-                    {{ session.title }}
-                    <span class="text-xs text-gray-500 ml-2">
-                      {{ session.lastMessageAt | date: 'shortDate' }}
-                    </span>
-                  </button>
-                }
+              @for (session of availableSessions; track session.id) {
+              <button
+                type="button"
+                (click)="
+                  onSessionSelected(session.id); isSessionMenuOpen = false
+                "
+                class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                [class.bg-gray-100]="currentSession?.id === session.id"
+                role="menuitem"
+              >
+                {{ session.title }}
+                <span class="text-xs text-gray-500 ml-2">
+                  {{ session.lastMessageAt | date : "shortDate" }}
+                </span>
+              </button>
+              }
 
-                <!-- New Conversation -->
-                <div class="border-t border-gray-100 mt-1 pt-1 ml-10">
-                  <button
-                    type="button"
-                    (click)="createNewSession(); isSessionMenuOpen = false"
-                    class="block w-full text-left px-4 py-2 text-sm text-blue-600 hover:bg-gray-100"
-                    role="menuitem"
-                  >
-                    <span class="flex items-center">
-                      <svg class="h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                      </svg>
-                      New Conversation
-                    </span>
-                  </button>
-                </div>
+              <div class="border-t border-gray-100 mt-1 pt-1 ml-10">
+                <button
+                  type="button"
+                  (click)="createNewSession(); isSessionMenuOpen = false"
+                  class="block w-full text-left px-4 py-2 text-sm text-blue-600 hover:bg-gray-100"
+                  role="menuitem"
+                >
+                  <span class="flex items-center">
+                    <svg
+                      class="h-4 w-4 mr-2"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                      />
+                    </svg>
+                    New Conversation
+                  </span>
+                </button>
               </div>
             </div>
+          </div>
           }
         </div>
       </div>
 
-      <!-- Topic Selector -->
       <div>
         <app-topic-selector
           [topics]="topics"
@@ -80,55 +105,80 @@
     </div>
   </header>
 
-  <!-- Chat Container -->
-  <div #chatContainer class="flex-1 overflow-y-auto px-2 py-4 md:px-4 md:py-6 mb-24 md:mb-20">
+  <div
+    #chatContainer
+    class="flex-1 overflow-y-auto px-2 py-4 md:px-4 md:py-6 mb-24 md:mb-20"
+  >
     <div class="max-w-3xl mx-auto space-y-4">
       @if (!currentSession?.messages?.length) {
-        <!-- Empty State -->
-        <div class="flex flex-col items-center justify-center h-full text-center text-gray-500 dark:text-gray-400 p-4 md:p-8">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-            />
-          </svg>
-          <h3 class="text-lg font-medium dark:text-white">Welcome to Unichat! 👋</h3>
-          <p class="mt-1 dark:text-gray-300">Hello! I'm your AI assistant. How can I help you today?</p>
-          <div class="mt-4 bg-blue-50 dark:bg-gray-800 p-4 rounded-lg max-w-lg">
-            <p class="text-sm text-blue-800 dark:text-blue-300 font-medium mb-2">You can ask me questions like:</p>
-            <ul class="text-sm text-blue-700 dark:text-gray-300 list-disc pl-5 space-y-1">
-              <li>Can you explain the concept of quantum entanglement?</li>
-              <li>Help me understand the difference between macroeconomics and microeconomics</li>
-              <li>What are some techniques for effective academic writing?</li>
-              <li>Explain the key periods of Renaissance art</li>
-            </ul>
-          </div>
-          <p class="mt-4 text-sm">You can select a subject using the topic selector above to get more targeted responses.</p>
+      <div
+        class="flex flex-col items-center justify-center h-full text-center text-gray-500 dark:text-gray-400 p-4 md:p-8"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-12 w-12 mb-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+          />
+        </svg>
+        <h3 class="text-lg font-medium dark:text-white">
+          Welcome to Unichat! 👋
+        </h3>
+        <p class="mt-1 dark:text-gray-300">
+          Hello! I'm your AI assistant. How can I help you today?
+        </p>
+        <div class="mt-4 bg-blue-50 dark:bg-gray-800 p-4 rounded-lg max-w-lg">
+          <p class="text-sm text-blue-800 dark:text-blue-300 font-medium mb-2">
+            You can ask me questions like:
+          </p>
+          <ul
+            class="text-sm text-blue-700 dark:text-gray-300 list-disc pl-5 space-y-1"
+          >
+            <li>Can you explain the concept of quantum entanglement?</li>
+            <li>
+              Help me understand the difference between macroeconomics and
+              microeconomics
+            </li>
+            <li>What are some techniques for effective academic writing?</li>
+            <li>Explain the key periods of Renaissance art</li>
+          </ul>
         </div>
-      } @else {
-        @for (message of currentSession?.messages; track message.id) {
-          <app-chat-bubble [message]="message"></app-chat-bubble>
-        }
-
-        <!-- Loading Bubble -->
-        @if (isLoading) {
-          <div class="flex items-center space-x-2 chat-bubble chat-bubble-ai">
-            <div class="flex space-x-1">
-              <div class="w-2 h-2 rounded-full bg-gray-500 animate-bounce"></div>
-              <div class="w-2 h-2 rounded-full bg-gray-500 animate-bounce" style="animation-delay: 0.2s"></div>
-              <div class="w-2 h-2 rounded-full bg-gray-500 animate-bounce" style="animation-delay: 0.4s"></div>
-            </div>
-            <span class="text-sm text-gray-600">AI is thinking...</span>
-          </div>
-        }
-      }
+        <p class="mt-4 text-sm">
+          You can select a subject using the topic selector above to get more
+          targeted responses.
+        </p>
+      </div>
+      } @else { @for (message of currentSession?.messages; track message.id) {
+      <app-chat-bubble [message]="message"></app-chat-bubble>
+      } @if (isLoading) {
+      <div class="flex items-center space-x-2 chat-bubble chat-bubble-ai">
+        <div class="flex space-x-1">
+          <div class="w-2 h-2 rounded-full bg-gray-500 animate-bounce"></div>
+          <div
+            class="w-2 h-2 rounded-full bg-gray-500 animate-bounce"
+            style="animation-delay: 0.2s"
+          ></div>
+          <div
+            class="w-2 h-2 rounded-full bg-gray-500 animate-bounce"
+            style="animation-delay: 0.4s"
+          ></div>
+        </div>
+        <span class="text-sm text-gray-600">AI is thinking...</span>
+      </div>
+      } }
     </div>
   </div>
 
-  <!-- Message Input -->
-  <div class="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-2 md:p-4 fixed bottom-0 left-0 right-0 w-full z-20">
+  <div
+    class="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-2 md:p-4 fixed bottom-0 left-0 right-0 w-full z-20"
+  >
     <div class="max-w-3xl mx-auto">
       <app-message-input
         [formGroup]="messageForm"

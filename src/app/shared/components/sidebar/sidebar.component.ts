@@ -43,6 +43,10 @@ export class SidebarComponent implements OnInit {
     this.isSidebarOpen = false;
   }
 
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
   logout() {
     this.authService.logout();
   }

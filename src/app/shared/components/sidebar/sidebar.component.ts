@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterModule, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterModule, RouterLinkActive, Router } from '@angular/router';
 import { AuthService } from '@services/auth.service';
 
 @Component({
@@ -14,7 +14,10 @@ export class SidebarComponent implements OnInit {
   isSidebarOpen = true;
   isMobile = false;
 
-  constructor(public readonly authService: AuthService) {}
+  constructor(
+    public readonly authService: AuthService,
+    private readonly router: Router
+  ) {}
 
   ngOnInit() {
     this.isDarkMode = document.documentElement.classList.contains('dark');
@@ -63,6 +66,17 @@ export class SidebarComponent implements OnInit {
     }
   }
   onMenuClick() {
+    if (this.isMobile) {
+      this.closeSidebar();
+    }
+  }
+
+  createNewConversation() {
+    // Navigate to chat and let the chat component handle creating a new session
+    this.router.navigate(['/chat']).then(() => {
+      // Trigger a custom event or use a service to notify chat component
+      globalThis.dispatchEvent(new CustomEvent('createNewConversation'));
+    });
     if (this.isMobile) {
       this.closeSidebar();
     }

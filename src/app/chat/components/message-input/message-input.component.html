@@ -1,6 +1,5 @@
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="relative">
   <div class="flex items-center space-x-2">
-    <!-- Topic Selector -->
     <div class="flex-shrink-0">
       <app-topic-selector
         [topics]="topics"
@@ -9,7 +8,6 @@
       ></app-topic-selector>
     </div>
     
-    <!-- Message Input -->
     <div class="relative flex-1 flex items-center">
       <input
         type="text"

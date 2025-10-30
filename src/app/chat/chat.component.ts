@@ -96,7 +96,6 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
         this.availableSessions = sessions;
       });
 
-    // Listen for new conversation events from sidebar
     window.addEventListener('createNewConversation', () => {
       this.createNewSession();
     });

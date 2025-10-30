@@ -1,5 +1,5 @@
 <div
-  class="h-screen pt-[54px] flex flex-col bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 w-56 fixed left-0 top-0 z-30 transition-transform duration-300 ease-in-out md:translate-x-0"
+  class="h-screen flex flex-col bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 w-56 fixed left-0 top-0 z-30 transition-transform duration-300 ease-in-out md:translate-x-0"
   [ngClass]="{
     '-translate-x-full': !isSidebarOpen,
     'translate-x-0': isSidebarOpen,
@@ -11,26 +11,15 @@
   <div
     class=" p-4 flex items-center justify-between border-b border-gray-200 dark:border-gray-700"
   >
-    <a
-      routerLink="/chat"
-      class="text-xl font-bold text-primary dark:text-white flex items-center"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6 mr-2"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
-        />
-      </svg>
-      Unichat
-    </a>
+    <div class="flex items-center space-x-2 ">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
+          <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
+        </svg>
+      </div>
+      <h2 class="text-base font-bold text-gray-900 dark:text-white">AI Chat</h2>
+    </div>
     <div class="flex items-center space-x-2">
       <button
         (click)="toggleDarkMode()"
@@ -71,16 +60,7 @@
   </div>
 
   <!-- AI Chat Section -->
-  <div class="px-4 mt-4 border-b border-gray-200 dark:border-gray-700 pb-4">
-    <div class="flex items-center space-x-2 mb-3">
-      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor">
-          <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
-          <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
-        </svg>
-      </div>
-      <h2 class="text-base font-bold text-gray-900 dark:text-white">AI Chat</h2>
-    </div>
+  <div class="px-4 mt-4 border-gray-200 dark:border-gray-700 pb-4">
     <button
       (click)="createNewConversation()"
       class="w-full flex items-center justify-center px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95"

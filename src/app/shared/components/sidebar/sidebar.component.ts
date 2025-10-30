@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterModule, RouterLinkActive, Router } from '@angular/router';
 import { AuthService } from '@services/auth.service';
+import { ThemeService } from '@services/theme.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,17 +11,16 @@ import { AuthService } from '@services/auth.service';
   templateUrl: './sidebar.component.html',
 })
 export class SidebarComponent implements OnInit, OnDestroy {
-  isDarkMode = false;
   isSidebarOpen = true;
   isMobile = false;
 
   constructor(
     public readonly authService: AuthService,
+    public readonly themeService: ThemeService,
     private readonly router: Router
   ) {}
 
   ngOnInit() {
-    this.isDarkMode = document.documentElement.classList.contains('dark');
     this.checkMobile();
     window.addEventListener('resize', this.checkMobile.bind(this));
   }
@@ -54,16 +54,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.authService.logout();
   }
 
-  toggleDarkMode() {
-    this.isDarkMode = !this.isDarkMode;
-    document.documentElement.classList.toggle('dark');
-
-    if (this.isDarkMode) {
-      localStorage['theme'] = 'dark';
-    } else {
-      localStorage['theme'] = 'light';
-    }
-  }
   onMenuClick() {
     if (this.isMobile) {
       this.closeSidebar();

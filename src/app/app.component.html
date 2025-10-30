@@ -1,36 +1,92 @@
-<div class="flex h-screen overflow-hidden bg-gray-50 dark:bg-gray-900 relative">
+<div class="flex h-screen overflow-hidden bg-gray-50 dark:bg-gray-900 relative flex-col">
   @if (authService.isLoggedIn) {
-  <button
-    class="fixed top-2 left-4 z-40 p-2 rounded-md bg-white dark:bg-gray-800 shadow md:hidden"
-    (click)="sidebar?.toggleSidebar()"
-    aria-label="Open sidebar"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="h-6 w-6 text-gray-700 dark:text-gray-200"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 h-14 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 z-40 flex items-center justify-between px-4">
+    <div class="flex items-center">
+      <button
+        (click)="sidebar?.toggleSidebar()"
+        class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors md:hidden"
+        aria-label="Toggle sidebar"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 text-gray-700 dark:text-gray-200"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+      <div class="flex items-center space-x-2 ml-3 md:ml-0">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
+            <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
+          </svg>
+        </div>
+        <h1 class="text-lg font-bold text-gray-900 dark:text-white">UniChat</h1>
+      </div>
+    </div>
+    
+    <!-- Theme Toggle -->
+    <button
+      (click)="themeService.toggleDarkMode()"
+      class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+      aria-label="Toggle theme"
     >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M4 6h16M4 12h16M4 18h16"
-      />
-    </svg>
-  </button>
-  <app-sidebar #sidebar></app-sidebar>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5 text-gray-500 dark:text-gray-300"
+        [ngClass]="{ hidden: themeService.isDarkMode, block: !themeService.isDarkMode }"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+        />
+      </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5 text-gray-300"
+        [ngClass]="{ block: themeService.isDarkMode, hidden: !themeService.isDarkMode }"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+        />
+      </svg>
+    </button>
+  </header>
 
-  <div
-    *ngIf="sidebar?.isSidebarOpen && sidebar?.isMobile"
-    class="fixed inset-0 bg-black bg-opacity-40 z-20 md:hidden"
-    (click)="sidebar?.closeSidebar()"
-    (keydown)="$event.key === 'Escape' && sidebar?.closeSidebar()"
-    aria-label="Sidebar overlay"
-  ></div>
-  <div class="flex-1 overflow-auto md:ml-56">
-    <router-outlet></router-outlet>
+  <div class="flex flex-1 pt-14 overflow-hidden">
+    <app-sidebar #sidebar></app-sidebar>
+
+    <div
+      *ngIf="sidebar?.isSidebarOpen && sidebar?.isMobile"
+      class="fixed inset-0 bg-black bg-opacity-40 z-20 md:hidden mt-14"
+      (click)="sidebar?.closeSidebar()"
+      (keydown)="$event.key === 'Escape' && sidebar?.closeSidebar()"
+      aria-label="Sidebar overlay"
+    ></div>
+    <div class="flex-1 transition-all duration-300"
+      [ngClass]="{'md:ml-56': sidebar?.isSidebarOpen, 'md:ml-0': !sidebar?.isSidebarOpen}">
+      <router-outlet></router-outlet>
+    </div>
   </div>
   } @else {
   <div class="flex-1 overflow-auto">

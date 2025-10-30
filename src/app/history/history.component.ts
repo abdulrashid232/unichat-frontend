@@ -19,6 +19,7 @@ export class HistoryComponent implements OnInit {
   errorMessage: string | null = null;
   showDeleteConfirmation = false;
   sessionToDelete: string | null = null;
+  loadingSessionId: string | null = null;
 
   constructor(
     private readonly historyService: HistoryService,
@@ -47,6 +48,7 @@ export class HistoryComponent implements OnInit {
   }
 
   viewChatSession(sessionId: string) {
+    this.loadingSessionId = sessionId;
     this.router.navigate(['/chat'], { queryParams: { session: sessionId } });
   }
 

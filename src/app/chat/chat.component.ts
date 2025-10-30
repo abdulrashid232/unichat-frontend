@@ -30,7 +30,6 @@ import { ActivatedRoute, Router } from '@angular/router';
     ReactiveFormsModule,
     ChatBubbleComponent,
     MessageInputComponent,
-    TopicSelectorComponent,
   ],
   templateUrl: './chat.component.html',
 })
@@ -96,6 +95,11 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
       .subscribe((sessions) => {
         this.availableSessions = sessions;
       });
+
+    // Listen for new conversation events from sidebar
+    window.addEventListener('createNewConversation', () => {
+      this.createNewSession();
+    });
   }
 
   ngAfterViewChecked() {

@@ -1,6 +1,5 @@
 <div class="flex h-screen overflow-hidden bg-gray-50 dark:bg-gray-900 relative flex-col">
   @if (authService.isLoggedIn) {
-  <!-- Header -->
   <header class="fixed top-0 left-0 right-0 h-14 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 z-40 flex items-center justify-between px-4">
     <div class="flex items-center">
       <button
@@ -34,7 +33,6 @@
       </div>
     </div>
     
-    <!-- Theme Toggle -->
     <button
       (click)="themeService.toggleDarkMode()"
       class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"

@@ -32,6 +32,8 @@ export class ErrorFormatterService {
           return 'Server error. Please try again later.';
         case 503:
           return 'Service unavailable. Please try again later.';
+        default:
+          return defaultMessage
       }
     }
 
@@ -51,7 +53,7 @@ export class ErrorFormatterService {
 
   private getValidationMessage(error: any): string {
     if (Array.isArray(error.error?.errors)) {
-      return error.error.errors.map((e: any) => e.message || e).join('. ');
+      return error.error.errors.map((e: any) => e.message ?? e).join('. ');
     }
 
     if (typeof error.error?.errors === 'object') {

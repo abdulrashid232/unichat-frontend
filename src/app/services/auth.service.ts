@@ -54,8 +54,7 @@ export class AuthService {
 
       this.getUser()
         .pipe(
-          catchError((error) => {
-            console.error('Token validation failed:', error);
+          catchError(() => {
             this.tokenService.removeToken();
             this._isLoggedIn.set(false);
             this._currentUser.set(null);
@@ -146,7 +145,7 @@ export class AuthService {
     if (error.error instanceof ErrorEvent) {
       errorMessage = `Error: ${error.error.message}`;
     } else {
-      errorMessage = error.error?.message || errorMessage;
+      errorMessage = error.error?.message ?? errorMessage;
     }
 
     return throwError(() => new Error(errorMessage));

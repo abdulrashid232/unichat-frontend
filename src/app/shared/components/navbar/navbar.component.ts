@@ -14,7 +14,13 @@ export class NavbarComponent {
 
   constructor(private readonly authService: AuthService) {}
 
+  toggleMobileMenu() {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+  }
+
   logout() {
     this.authService.logout();
   }
+
+
 }

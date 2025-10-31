@@ -9,7 +9,6 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { ToastService } from '../../services/toast.service';
-import { ErrorFormatterService } from '../../services/error-formatter.service';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +25,6 @@ export class LoginComponent {
     private readonly authService: AuthService,
     private readonly router: Router,
     private readonly toastService: ToastService,
-    private readonly errorFormatter: ErrorFormatterService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -51,12 +49,11 @@ export class LoginComponent {
       },
       error: (error) =>{
         this.isLoading = false;
-        this.toastService.error(this.errorFormatter.formatError(error, 'Login failed'));
+        this.toastService.error(this.formatErrorMessage(error));
       },
     }); 
   }
   private formatErrorMessage(error: any): string {
-    if (!error) return 'An unknown error occurred';
     if (error.status === 401) {
       return 'Invalid email or password';
     }

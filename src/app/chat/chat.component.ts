@@ -30,7 +30,6 @@ import { ActivatedRoute, Router } from '@angular/router';
     ReactiveFormsModule,
     ChatBubbleComponent,
     MessageInputComponent,
-    TopicSelectorComponent,
   ],
   templateUrl: './chat.component.html',
 })
@@ -43,6 +42,8 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   topics: Topic[] = PREDEFINED_TOPICS;
   selectedTopic: Topic | null = null;
   isLoading = false;
+  isLoadingSession = false;
+  showWelcomeScreen = false;
   scrollToBottom = false;
   isSessionMenuOpen = false;
 
@@ -61,7 +62,6 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   ngOnInit() {
-
     this.chatService.loadChatHistory().subscribe((data) => {
       this.availableSessions = data.sessions || [];
 
@@ -69,9 +69,11 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
         .pipe(takeUntil(this.destroy$))
         .subscribe((queryParams) => {
           if (queryParams['session'] && this.availableSessions.length) {
+            this.showWelcomeScreen = false;
             this.loadSession(queryParams['session']);
           } else {
             this.currentSession = null;
+            this.showWelcomeScreen = true;
           }
         });
     });
@@ -96,6 +98,10 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
       .subscribe((sessions) => {
         this.availableSessions = sessions;
       });
+
+    window.addEventListener('createNewConversation', () => {
+      this.createNewSession();
+    });
   }
 
   ngAfterViewChecked() {
@@ -116,6 +122,8 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
       return;
     }
 
+    this.isLoadingSession = true;
+
     this.router.navigate(['/chat'], {
       queryParams: { session: sessionId },
       replaceUrl: true,
@@ -125,9 +133,11 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.chatService.getSessionById(sessionId).subscribe({
       next: () => {
         this.scrollToBottom = true;
+        this.isLoadingSession = false;
       },
       error: (err) => {
         console.error('Failed to load session:', err);
+        this.isLoadingSession = false;
       },
     });
   }
@@ -135,6 +145,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   createNewSession() {
     this.currentSession = null;
     this.currentSessionSubject?.next(null);
+    this.isLoadingSession = false;
 
     this.messageForm.get('message')?.setValue('');
 

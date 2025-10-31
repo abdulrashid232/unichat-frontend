@@ -7,7 +7,7 @@ import { Toast, ToastType } from '../models/toast.model';
 })
 export class ToastService {
   private toasts: Toast[] = [];
-  private toastsSubject = new BehaviorSubject<Toast[]>([]);
+  private readonly toastsSubject = new BehaviorSubject<Toast[]>([]);
 
   toasts$: Observable<Toast[]> = this.toastsSubject.asObservable();
 

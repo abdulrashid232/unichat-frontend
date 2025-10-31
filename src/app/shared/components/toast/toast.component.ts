@@ -40,7 +40,7 @@ import {
 export class ToastComponent implements OnInit {
   toasts: Toast[] = [];
 
-  constructor(private toastService: ToastService) {}
+  constructor(private readonly toastService: ToastService) {}
 
   ngOnInit(): void {
     this.toastService.toasts$.subscribe((toasts) => {

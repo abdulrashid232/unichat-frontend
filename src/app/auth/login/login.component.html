@@ -1,14 +1,24 @@
 <div
-  class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8"
+  class="bg-gray-900 text-white min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 font-sans"
 >
-  <div class="max-w-md w-full space-y-8">
-    <div>
-      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-        Sign in to UniChat
-      </h2>
-      <p class="mt-2 text-center text-sm text-gray-600">
-        Your university AI chat assistant
-      </p>
+  <div class="max-w-md w-full space-y-8 bg-gray-800 p-8 rounded-xl shadow-2xl">
+    <div class="text-center">
+      <div class="mb-6">
+        <svg
+          class="w-10 h-10 text-accent mx-auto"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold mb-2">Sign in to UniChat</h2>
+      <p class="text-gray-400 text-sm">Your university AI chat assistant</p>
     </div>
 
     <form
@@ -16,21 +26,25 @@
       [formGroup]="loginForm"
       (ngSubmit)="onSubmit()"
     >
-      <div class="rounded-md shadow-sm space-y-4">
+      <div class="space-y-5">
         <div>
-          <label for="email" class="form-label">Email address</label>
+          <label
+            for="email"
+            class="text-sm font-medium text-gray-300 block mb-2"
+            >Email address</label
+          >
           <input
             id="email"
             name="email"
             type="email"
             formControlName="email"
-            class="form-input"
+            class="bg-gray-700 text-white placeholder-gray-400 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary w-full"
             placeholder="Email address"
             required
           />
           @if (loginForm.get('email')?.invalid &&
           loginForm.get('email')?.touched) {
-          <div class="form-error">
+          <div class="text-red-500 text-xs mt-1">
             @if (loginForm.get('email')?.hasError('required')) { Email is
             required } @else if (loginForm.get('email')?.hasError('email')) {
             Please enter a valid email address }
@@ -39,19 +53,24 @@
         </div>
 
         <div>
-          <label for="password" class="form-label">Password</label>
+          <label
+            for="password"
+            class="text-sm font-medium text-gray-300 block mb-2"
+            >Password</label
+          >
           <input
             id="password"
             name="password"
             type="password"
+            [autocomplete]="false"
             formControlName="password"
-            class="form-input"
+            class="bg-gray-700 text-white placeholder-gray-400 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary w-full"
             placeholder="Password"
             required
           />
           @if (loginForm.get('password')?.invalid &&
           loginForm.get('password')?.touched) {
-          <div class="form-error">
+          <div class="text-red-500 text-xs mt-1">
             @if (loginForm.get('password')?.hasError('required')) { Password is
             required } @else if
             (loginForm.get('password')?.hasError('minlength')) { Password must
@@ -64,8 +83,9 @@
       <div>
         <button
           type="submit"
+          [ngClass]="{'cursor-not-allowed': loginForm.invalid || isLoading}"
           [disabled]="loginForm.invalid || isLoading"
-          class="btn btn-primary w-full flex justify-center"
+          class="bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-lg w-full flex justify-center items-center transition-colors duration-300"
         >
           @if (isLoading) {
           <svg
@@ -92,12 +112,12 @@
         </button>
       </div>
 
-      <div class="text-sm text-center">
-        <p class="text-gray-600">
+      <div class="text-center border-t border-gray-700 pt-4">
+        <p class="text-gray-400 text-sm">
           Don't have an account?
           <a
             routerLink="/register"
-            class="font-medium text-primary hover:text-primary-dark cursor-pointer"
+            class="font-medium text-accent hover:text-accent-light cursor-pointer transition-colors duration-300"
           >
             Register here
           </a>

@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy": "ng build --configuration production --base-href 'https://abdulrashid232.github.io/unichat-frontend/' && npx angular-cli-ghpages --dir=dist/unichat"
+    "deploy": "ng build --configuration production --base-href 'https://abdulrashid232.github.io/unichat-frontend/' && npx angular-cli-ghpages --dir=dist/unichat-frontend/browser"
   },
   "private": true,
   "dependencies": {

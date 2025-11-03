@@ -1,10 +1,9 @@
 {
-    "buildCommand": "npm run build",
-    "outputDirectory": "dist/unichat-frontend",
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/index.html"
-        }
-    ]
+  "version": 2,
+  "framework": "angular",
+  "buildCommand": "ng build",
+  "outputDirectory": "dist/unichat-frontend/browser",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ]
 }

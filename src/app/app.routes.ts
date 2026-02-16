@@ -12,7 +12,7 @@ export const routes: Routes = [
     path: '',
     loadComponent: () =>
       import('./home-page/home-page.component').then(
-        (m) => m.HomePageComponent
+        (m) => m.HomePageComponent,
       ),
   },
 
@@ -26,7 +26,7 @@ export const routes: Routes = [
     path: 'register',
     loadComponent: () =>
       import('./auth/register/register.component').then(
-        (m) => m.RegisterComponent
+        (m) => m.RegisterComponent,
       ),
     canActivate: [LoginGuard],
   },
@@ -49,10 +49,16 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'exams',
+    loadComponent: () =>
+      import('./exams/exams.component').then((m) => m.ExamsComponent),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'not-found',
     loadComponent: () =>
       import('./not-found/not-found.component').then(
-        (m) => m.NotFoundComponent
+        (m) => m.NotFoundComponent,
       ),
   },
   {
